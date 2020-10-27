@@ -6,6 +6,7 @@ import com.hzf.mymall.model.PmsBrand;
 import com.hzf.mymall.model.PmsBrandExample;
 import com.hzf.mymall.service.PmsBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @verison:1.0.0
  * @description：PmsBrand 实现类
  */
-
+@Service
 public class PmsBrandServiceImpl implements PmsBrandService {
 
     @Autowired

@@ -3,8 +3,10 @@ package com.hzf.mymall.mapper;
 import com.hzf.mymall.model.PmsBrand;
 import com.hzf.mymall.model.PmsBrandExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface PmsBrandMapper {
     long countByExample(PmsBrandExample example);
 

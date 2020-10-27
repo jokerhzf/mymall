@@ -6,7 +6,6 @@ import com.hzf.mymall.model.PmsBrand;
 import com.hzf.mymall.service.PmsBrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.RequestWrapper;
 import java.util.List;
 
 /**
@@ -23,13 +21,13 @@ import java.util.List;
  * @verison:1.0.0
  * @description：品牌管理 Controller
  */
-@Api(tags = "PmsBrandController",  value = "商品品牌管理")
+@Api
 @Controller
 @RequestMapping("/brand")
 public class PmsBrandController {
 
     @Autowired
-    private PmsBrandService demoService;
+    private PmsBrandService pmsBrandService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsBrandController.class);
 
@@ -37,31 +35,31 @@ public class PmsBrandController {
     @RequestMapping(value = "listAll", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<PmsBrand>> getBrandList(){
-        return CommonResult.success(demoService.listAllBrand());
+        return CommonResult.success(pmsBrandService.listAllBrand());
     }
 
     @ApiOperation("分页查询品牌列表")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "list", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<PmsBrand>> listBrand(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                   @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize){
-        List<PmsBrand> brandList = demoService.listBrand(pageNum,pageSize);
+        List<PmsBrand> brandList = pmsBrandService.listBrand(pageNum,pageSize);
         return CommonResult.success(CommonPage.restPage(brandList));
     }
 
     @ApiOperation("获取指定id的品牌详情")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<PmsBrand> Brand(@PathVariable("id") Long id){
-        return CommonResult.success(demoService.getBrand(id));
+        return CommonResult.success(pmsBrandService.getBrand(id));
     }
 
     @ApiOperation("添加品牌")
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "create", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult createBrand(@RequestBody PmsBrand pmsBrand){
         CommonResult commonResult;
-        int count = demoService.createBrand(pmsBrand);
+        int count = pmsBrandService.createBrand(pmsBrand);
         if(count == 1){
             commonResult = CommonResult.success(pmsBrand);
             LOGGER.debug("create Brand success:{}",pmsBrand);
@@ -73,11 +71,11 @@ public class PmsBrandController {
     }
 
     @ApiOperation("更新指定id品牌信息")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updateBrand(@PathVariable("id") Long id, @RequestBody PmsBrand pmsBrandDto, BindingResult result){
         CommonResult commonResult;
-        int count = demoService.updateBrand(id,pmsBrandDto);
+        int count = pmsBrandService.updateBrand(id,pmsBrandDto);
         if(count == 1){
             commonResult = CommonResult.success(pmsBrandDto);
             LOGGER.debug("updateBrand success:{}",pmsBrandDto);
@@ -89,10 +87,10 @@ public class PmsBrandController {
     }
 
     @ApiOperation("删除指定id的品牌")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult deleteBrand(@PathVariable("id") Long id){
-        int count = demoService.deleteBrand(id);
+        int count = pmsBrandService.deleteBrand(id);
         if(count == 1){
             LOGGER.debug("deleteBrand success:{}",id);
             return CommonResult.success(null);
