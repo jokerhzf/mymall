@@ -2,6 +2,7 @@ package com.hzf.mymall.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author：010980380
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @description：MyBatis配置类
  */
 @Configuration
-@MapperScan("com.macro.mall.tiny.mbg.mapper")
+@EnableTransactionManagement
+@MapperScan({"com.hzf.mymall.mapper","com.hzf.mymall.dao"})
 public class MyBatisConfig {
 }
