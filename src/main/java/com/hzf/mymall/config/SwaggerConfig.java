@@ -49,7 +49,7 @@ public class SwaggerConfig {
 
     /**
      * 设置请求头信息
-     * @return List<ApiKey>
+     * @return List<SecurityScheme>
      * @author huangzifan
      * @since 2020-10-28 15:08
      */

@@ -1,6 +1,7 @@
 package com.hzf.mymall.common;
 
 import com.github.pagehelper.PageInfo;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class CommonPage<T> {
     private Long total;
     private List<T> list;
 
+    /**
+     * 将PageHelper分页后的list转为分页信息
+     */
     public static <T> CommonPage<T> restPage(List<T> list){
         CommonPage result =new CommonPage<T>();
         PageInfo<T> pageInfo = new PageInfo<T>(list);
@@ -27,6 +31,19 @@ public class CommonPage<T> {
         result.setTotalpage(pageInfo.getPages());
         result.setTotal(pageInfo.getTotal());
         result.setList(pageInfo.getList());
+        return result;
+    }
+
+    /**
+     * 将SpringData分页后的list转为分页信息
+     */
+    public static <T> CommonPage<T> restPage(Page<T> pageInfo) {
+        CommonPage<T> result = new CommonPage<T>();
+        result.setTotalpage(pageInfo.getTotalPages());
+        result.setPageNum(pageInfo.getNumber());
+        result.setPageSize(pageInfo.getSize());
+        result.setTotal(pageInfo.getTotalElements());
+        result.setList(pageInfo.getContent());
         return result;
     }
 
