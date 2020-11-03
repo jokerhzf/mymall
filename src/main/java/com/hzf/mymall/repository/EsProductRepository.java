@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @verison:1.0.0
  * @description：商品ES操作类
  */
-@Component
+
 public interface EsProductRepository extends ElasticsearchRepository<EsProduct, Long> {
     /**
      * 搜索查询
